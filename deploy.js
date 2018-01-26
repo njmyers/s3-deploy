@@ -2,8 +2,9 @@
 
 require('dotenv').config({});
 const chalk = require('chalk');
-const { getDeployLog, putDirectoryToS3, putDeployLog } = require('./lib/s3');
+const { getDeployLog, putDirectoryToS3, putDeployLog, getDirectoryFromS3 } = require('./lib/s3');
 const { mergeDeployLog, generateNewRelease } = require('./lib/log');
+const { createDirectoryStreams } = require('./lib/dir');
 
 function consoleLogRelease(release) {
 	console.log(chalk.yellow('successfully deployed release'))
@@ -11,12 +12,12 @@ function consoleLogRelease(release) {
 }
 
 function logKeys(object) {
-	for (let key of object) {
+	for (let key in object) {
 		console.log(chalk.yellow(`${key}: ${object[key]}`));
 	}
 }
 
-function validateUpload(resolutions) {
+function validateResolutions(resolutions) {
 	return resolutions;
 }
 
@@ -55,10 +56,29 @@ async function deploy() {
 	try {
 		const { Bucket, log, release } = await validateRelease();
 
+		// get last deploy
+		const oldContainers = await getDirectoryFromS3({
+			Bucket,
+			Prefix: 'current'
+		});
+
+		// put last deply streams to S3 in new directory
+		const resolve = await putDirectoryToS3({
+			Bucket,
+			containers: oldContainers,
+			dest: `releases/${release.id}`,
+			stub: 'current'
+		});
+
+		// read build directory recursively & synchronously then creates readable streams
+		const containers = createDirectoryStreams('./build');
+
+		// put streams to S3 and rename to current
 		const resolutions = await putDirectoryToS3({
 			Bucket,
-			src: '../build',
-			dest: 'current'
+			containers,
+			dest: 'current',
+			stub: 'build'
 		});
 
 		validateResolutions(resolutions);

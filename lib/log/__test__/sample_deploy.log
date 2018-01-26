@@ -1,10 +1,11 @@
 {
 	"current": {
-		"id": "value"
+		"date": "Fri Jan 26 2018 12:17:56 GMT-0500 (EST)",
+        "sha": "589795730dd12df24ebe1dc937877cb4d666e157",
+        "branch": "* master",
+        "message": "wrote basic deploy functions moving on to tests",
+        "id": "6ff319"
 	},
 	"releases": [
-		{
-			"id": "value"
-		}
 	]
 }
