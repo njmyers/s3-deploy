@@ -7,7 +7,7 @@ const { mergeDeployLog, generateNewRelease } = require('./lib/log');
 const { createDirectoryStreams } = require('./lib/dir');
 
 function consoleLogRelease(release) {
-	console.log(chalk.yellow('successfully deployed release'))
+	console.log(chalk.yellow('successfully deployed release'));
 	logKeys(release);
 }
 
@@ -26,8 +26,8 @@ function validateBucket() {
 	const __projectdir = process.cwd();
 	
 	if (!Bucket) {
-		console.log(chalk.red(`Please specify an S3 bucket in your .env file`))
-		console.log(chalk.red('S3_DEPLOY_BUCKET=mybucket'))
+		console.log(chalk.red(`Please specify an S3 bucket in your .env file`));
+		console.log(chalk.red('S3_DEPLOY_BUCKET=mybucket'));
 		process.exit();
 	}
 
