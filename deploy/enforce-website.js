@@ -7,17 +7,14 @@ const config = {
 	},
 	ErrorDocument: {
 		Key: "index.html"
-	},
-	RoutingRules: []
+	}
 }
 
 async function enforceWebsite({ Bucket, WebsiteConfiguration = config } = {}) {
 
 	try {
-		console.log(WebsiteConfiguration);
 		const response = await putBucketWebsite({ Bucket, WebsiteConfiguration });
-		console.log(response);
-		// return response
+		return response
 	} catch(e) {
 		console.log(chalk.red(e));
 	}

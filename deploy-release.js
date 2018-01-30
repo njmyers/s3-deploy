@@ -19,12 +19,12 @@ async function deploy() {
 		const { AWS_SECRET_KEY, AWS_ID } = validateCredentials();
 		logTask('validating credentials', 'completed');
 
-		logTask('validating release', 'starting');
+		logTask('validating release', 'started');
 		const { Bucket, log, release, cwd } = await validateRelease();
 		logTask('validating release', 'completed');
 		await enforceWebsite({ Bucket });
 
-		logTask('archiving old deploy', 'starting');
+		logTask('archiving old deploy', 'started');
 		const oldContainers = await getDirectoryFromS3({
 			Bucket,
 			Prefix: 'current'
@@ -40,12 +40,12 @@ async function deploy() {
 		logTask('archiving old deploy', 'completed');
 
 		// read build directory recursively & synchronously then creates readable streams
-		logTask('reading build directory', 'starting');
+		logTask('reading build directory', 'started');
 		const containers = createDirectoryStreams(`${cwd}/build`);
 		logTask('reading build directory', 'completed');
 
 		// put streams to S3 and rename to current
-		logTask('uploading current build', 'starting');
+		logTask('uploading current build', 'started');
 		const resolutions = await putDirectoryToS3({
 			Bucket,
 			containers,
@@ -56,7 +56,7 @@ async function deploy() {
 		logTask('uploading current build', 'completed');
 
 
-		logTask('merging and uploading new log', 'starting');
+		logTask('merging and uploading new log', 'started');
 		const newLog = mergeDeployLog(log, release);
 		const resolution = await putDeployLog({
 			Bucket,
@@ -66,8 +66,9 @@ async function deploy() {
 
 		validateResolutions(resolution);
 
-		logTask('enforcing policy', 'starting');
+		logTask('enforcing policy', 'started');
 		const policy = await enforcePolicy({ Bucket })
+		logTask('enforcing policy', 'started');
 		
 		consoleOutput(release);
 

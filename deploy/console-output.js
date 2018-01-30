@@ -7,7 +7,7 @@ function consoleOutput(release) {
 
 function logKeys(object) {
 	for (let key in object) {
-		console.log(chalk.yellow(`${key}: ${object[key]}`));
+		console.log(chalk.green(`${key}: ${object[key]}`));
 	}
 }
 
