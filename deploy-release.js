@@ -1,4 +1,4 @@
-#!/urs/bin/env node
+#!/usr/bin/env node
 
 const chalk = require('chalk');
 const { putDirectoryToS3, putDeployLog, getDirectoryFromS3 } = require('./lib/s3');
