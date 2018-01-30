@@ -26,5 +26,3 @@ const files = readDirectory(__dirname);
 files.forEach((each) => {
 	module.exports[camelCase(each)] = require(path.join(__dirname, each));
 });
-
-console.log(module.exports);
