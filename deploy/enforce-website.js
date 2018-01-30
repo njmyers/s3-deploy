@@ -3,10 +3,10 @@ const { putBucketWebsite, getBucketWebsite } = require('../lib/s3');
 
 const config = {
 	IndexDocument: { 
-		Suffix: 'index.html'
+		Suffix: "index.html"
 	},
 	ErrorDocument: {
-		Key: 'index.html'
+		Key: "index.html"
 	},
 	RoutingRules: []
 }
@@ -14,6 +14,7 @@ const config = {
 async function enforceWebsite({ Bucket, WebsiteConfiguration = config } = {}) {
 
 	try {
+		console.log(WebsiteConfiguration);
 		const response = await putBucketWebsite({ Bucket, WebsiteConfiguration });
 		console.log(response);
 		// return response
