@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const { putBucketWebsite, getBucketWebsite } = require('../lib/s3');
+const { deleteBucketWebsite } = require('../lib/s3');
 
 const config = {
 	IndexDocument: { 
@@ -10,10 +10,10 @@ const config = {
 	}
 }
 
-async function enforceWebsite({ Bucket, WebsiteConfiguration = config } = {}) {
+async function enforceWebsite({ Bucket } = {}) {
 
 	try {
-		const response = await putBucketWebsite({ Bucket, WebsiteConfiguration });
+		const response = await deleteBucketWebsite({ Bucket });
 		return response
 	} catch(e) {
 		console.log(chalk.red(e));
