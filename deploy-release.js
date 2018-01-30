@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const { putDirectoryToS3, putDeployLog, getDirectoryFromS3 } = require('./lib/s3');
 const { mergeDeployLog } = require('./lib/log');
 const { createDirectoryStreams } = require('./lib/dir');
-const { validateRelease, validateCredentials, logTask, consoleOutput } = require('./deploy');
+const { validateRelease, validateCredentials, logTask, consoleOutput, enforcePolicy } = require('./deploy');
 
 function validateResolutions(resolutions) {
 	return resolutions;
@@ -63,7 +63,11 @@ async function deploy() {
 		logTask('merging and uploading new log', 'completed');
 
 		validateResolutions(resolution);
-		await consoleOutput(release);
+
+		logTask('enforcing policy', 'starting');
+		const policy = await enforcePolicy({ Bucket })
+		
+		consoleOutput(release);
 
 	} catch(e) {
 		console.log(chalk.red(e));		
