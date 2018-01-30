@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const { putDirectoryToS3, putDeployLog, getDirectoryFromS3 } = require('./lib/s3');
 const { mergeDeployLog } = require('./lib/log');
 const { createDirectoryStreams } = require('./lib/dir');
-const { validateRelease, validateCredentials, logTask, consoleOutput, enforcePolicy } = require('./deploy');
+const { validateRelease, validateCredentials, logTask, consoleOutput, enforcePolicy, enforceWebsite } = require('./deploy');
 
 function validateResolutions(resolutions) {
 	return resolutions;
@@ -15,12 +15,14 @@ async function deploy() {
 	console.log(chalk.yellow('deploying your build to S3...'));
 
 	try {
+
 		const { AWS_SECRET_KEY, AWS_ID } = validateCredentials();
 		logTask('validating credentials', 'completed');
 
 		logTask('validating release', 'starting');
 		const { Bucket, log, release, cwd } = await validateRelease();
 		logTask('validating release', 'completed');
+		await enforceWebsite({ Bucket });
 
 		logTask('archiving old deploy', 'starting');
 		const oldContainers = await getDirectoryFromS3({
