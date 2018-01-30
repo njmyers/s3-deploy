@@ -58,7 +58,7 @@ async function deploy() {
 		const newLog = mergeDeployLog(log, release);
 		const resolution = await putDeployLog({
 			Bucket,
-			Body: JSON.stringify(newLog)
+			Body: JSON.stringify(newLog, null, 4)
 		});
 		logTask('merging and uploading new log', 'completed');
 
