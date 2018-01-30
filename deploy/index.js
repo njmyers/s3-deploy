@@ -1,6 +1,5 @@
 const fs = require('fs');
 const camelCase = require('camelcase');
-const lodash = require('lodash');
 const chalk = require('chalk');
 const path = require('path');
 
@@ -8,11 +7,6 @@ function isFile(file) {
 	return fs.statSync(file).isFile();
 }
 
-/**
- * recursively read directory structure
- * @param  {string} dir directory to read
- * @return {array}     array of file paths
- */
 function readDirectory(dir) {
 	try {
 		const names = fs.readdirSync(dir);
