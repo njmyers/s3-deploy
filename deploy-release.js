@@ -86,5 +86,8 @@ const tasks = [
 	{
 		name: 'validate release',
 		action: validateRelease
+	},
+	{
+		name: 'another action'
 	}
 ]
