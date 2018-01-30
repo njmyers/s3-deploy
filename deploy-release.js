@@ -78,6 +78,13 @@ async function deploy() {
 
 deploy();
 
-const tasks = {
-
-}
+const tasks = [
+	{
+		name: 'validate credentials',
+		action: validateCredentials
+	},
+	{
+		name: 'validate release',
+		action: validateRelease
+	}
+]
