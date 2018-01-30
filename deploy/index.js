@@ -1,19 +1,36 @@
-const consoleOutput = require('./console-output');
-const registerCWD = require('./register-cwd');
-const validateBucket = require('./validate-bucket');
-const validateRelease = require('./validate-release');
-const validateCredentials = require('./validate-credentials');
-const logTask = require('./log-task');
-const policyGenerator = require('./policy-generator');
-const enforcePolicy = require('./enforce-policy');
+const fs = require('fs');
+const camelCase = require('camelcase');
+const lodash = require('lodash');
+const chalk = require('chalk');
+const path = require('path');
 
-module.exports = {
-	consoleOutput,
-	registerCWD,
-	validateRelease,
-	validateBucket,
-	validateCredentials,
-	logTask,
-	policyGenerator,
-	enforcePolicy
+function isFile(file) {
+	return fs.statSync(file).isFile();
 }
+
+/**
+ * recursively read directory structure
+ * @param  {string} dir directory to read
+ * @return {array}     array of file paths
+ */
+function readDirectory(dir) {
+	try {
+		const names = fs.readdirSync(dir);
+		const files = names.map((name) => {
+ 			const filePath = `${dir}/${name}`;
+			if (isFile(filePath) && name !== 'index.js') return name.substring(0, name.length - 3);
+		});
+
+		return files.filter((item) => item !== undefined);
+	} catch(e) {
+		console.log(chalk.red(e));;
+	}
+}
+
+const files = readDirectory(__dirname);
+
+files.forEach((each) => {
+	module.exports[camelCase(each)] = require(path.join(__dirname, each));
+});
+
+console.log(module.exports);
