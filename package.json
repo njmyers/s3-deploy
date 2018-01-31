@@ -1,6 +1,6 @@
 {
 	"name": "s3-deploy-scripts",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "deploy static sites to amazon s3",
 	"main": "deploy-release.js",
 	"directories": {
