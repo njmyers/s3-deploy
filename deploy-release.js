@@ -34,7 +34,7 @@ async function deploy() {
 		const resolve = await putDirectoryToS3({
 			Bucket,
 			containers: oldContainers,
-			dest: `releases/${release.id}`,
+			dest: `releases/${log.current.id}`,
 			stub: 'current'
 		});
 		logTask('archiving old deploy', 'completed');
