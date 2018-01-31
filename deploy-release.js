@@ -44,8 +44,6 @@ async function deploy() {
 		const containers = createDirectoryStreams(`${cwd}/build`);
 		logTask('reading build directory', 'completed');
 
-		console.log(containers);
-
 		// put streams to S3 and rename to current
 		logTask('uploading current build', 'started');
 		const resolutions = await putDirectoryToS3({
