@@ -32,24 +32,24 @@ async function deploy() {
 		logTask('validating release', 'completed');
 		await enforceWebsite({ Bucket });
 
-		logTask('archiving old deploy', 'started');
+		logTask('reading old deploy', 'started');
 		const oldContainers = await getDirectoryFromS3({
 			Bucket,
 			Prefix: 'current'
 		});
 
 		// console.log(oldContainers);
-
-		// put last deploy streams to S3 in new directory
-		const resolve = await putDirectoryToS3({
-			Bucket,
-			containers: oldContainers,
-			dest: `releases/${log.current.id}`,
-			stub: 'current'
-		});
-		logTask('archiving old deploy', 'completed');
-
 		if (oldContainers.length < 0) {
+
+			// put last deploy streams to S3 in new directory
+			const resolve = await putDirectoryToS3({
+				Bucket,
+				containers: oldContainers,
+				dest: `releases/${log.current.id}`,
+				stub: 'current'
+			});
+			logTask('archiving old deploy', 'completed');
+
 			logTask('deleting old deploy', 'started');
 			const deleted = await deleteObjects({
 				Bucket,
