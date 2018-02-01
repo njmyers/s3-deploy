@@ -1,13 +1,21 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk');
-const { putDirectoryToS3, putDeployLog, getDirectoryFromS3 } = require('./lib/s3');
+const { putDirectoryToS3, putDeployLog, getDirectoryFromS3, deleteObjects } = require('./lib/s3');
 const { mergeDeployLog } = require('./lib/log');
 const { createDirectoryStreams } = require('./lib/dir');
 const { validateRelease, validateCredentials, logTask, consoleOutput, enforcePolicy, enforceWebsite } = require('./deploy');
 
 function validateResolutions(resolutions) {
 	return resolutions;
+}
+
+function stripKeys(containers) {
+	return containers.map((container) => {
+		return {
+			Key: container.Key
+		}
+	})
 }
 
 async function deploy() {
@@ -30,6 +38,8 @@ async function deploy() {
 			Prefix: 'current'
 		});
 
+		// console.log(oldContainers);
+
 		// put last deploy streams to S3 in new directory
 		const resolve = await putDirectoryToS3({
 			Bucket,
@@ -38,6 +48,15 @@ async function deploy() {
 			stub: 'current'
 		});
 		logTask('archiving old deploy', 'completed');
+
+		logTask('deleting old deploy', 'started');
+		const deleted = await deleteObjects({
+			Bucket,
+			Delete: {
+				Objects: stripKeys(oldContainers)
+			}
+		});
+		logTask('deleting old deploy', 'completed');
 
 		// read build directory recursively & synchronously then creates readable streams
 		logTask('reading build directory', 'started');
@@ -68,7 +87,7 @@ async function deploy() {
 
 		logTask('enforcing policy', 'started');
 		const policy = await enforcePolicy({ Bucket })
-		logTask('enforcing policy', 'started');
+		logTask('enforcing policy', 'completed');
 		
 		consoleOutput(release);
 
