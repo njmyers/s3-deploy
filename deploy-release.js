@@ -39,7 +39,7 @@ async function deploy() {
 		});
 
 		// console.log(oldContainers);
-		if (oldContainers.length < 0) {
+		if (oldContainers.length > 0) {
 
 			// put last deploy streams to S3 in new directory
 			const resolve = await putDirectoryToS3({
