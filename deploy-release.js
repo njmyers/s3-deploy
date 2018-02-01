@@ -11,11 +11,13 @@ function validateResolutions(resolutions) {
 }
 
 function stripKeys(containers) {
+	
 	return containers.map((container) => {
+
 		return {
 			Key: container.Key
-		}
-	})
+		};
+	});
 }
 
 async function deploy() {
