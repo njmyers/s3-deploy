@@ -11,7 +11,7 @@ function validateResolutions(resolutions) {
 }
 
 function stripKeys(containers) {
-	
+
 	return containers.map((container) => {
 
 		return {
@@ -39,11 +39,13 @@ async function deploy() {
 			Bucket,
 			Prefix: 'current'
 		});
+		logTask('reading old deploy', 'completed');
 
 		// console.log(oldContainers);
 		if (oldContainers.length > 0) {
 
 			// put last deploy streams to S3 in new directory
+			logTask('archiving old deploy', 'started');
 			const resolve = await putDirectoryToS3({
 				Bucket,
 				containers: oldContainers,
