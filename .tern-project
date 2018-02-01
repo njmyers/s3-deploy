@@ -1,0 +1,27 @@
+{
+	"libs": [
+		"browser",
+		"ecmascript"
+	],
+	"plugins": {
+		 "node": {},
+		 "modules": {},
+		 "requirejs": {},
+		 "doc_comments": {},
+		 "commonjs": {},
+		 "es_modules": {},
+		 "node-express": {},
+		 "jasmine": {}
+	},
+	"ecmaVersion": 7,
+	"dontLoad": [
+		"node_modules/**"
+	],
+	"load": [
+		"node_modules/jest",
+		"node_modules/fs",
+		"node_modules/lodash",
+		"node_modules/path",
+		"node_modules/mime"
+	]
+}

@@ -3,21 +3,11 @@
 const chalk = require('chalk');
 const { putDirectoryToS3, putDeployLog, getDirectoryFromS3, deleteObjects } = require('./lib/s3');
 const { mergeDeployLog } = require('./lib/log');
-const { createDirectoryStreams } = require('./lib/dir');
+const { readDirectory, stripAllExceptKey } = require('./lib/dir');
 const { validateRelease, validateCredentials, logTask, consoleOutput, enforcePolicy, enforceWebsite } = require('./deploy');
 
 function validateResolutions(resolutions) {
 	return resolutions;
-}
-
-function stripKeys(containers) {
-
-	return containers.map((container) => {
-
-		return {
-			Key: container.Key
-		};
-	});
 }
 
 async function deploy() {
@@ -58,7 +48,7 @@ async function deploy() {
 			const deleted = await deleteObjects({
 				Bucket,
 				Delete: {
-					Objects: stripKeys(oldContainers)
+					Objects: stripAllExceptKey(oldContainers)
 				}
 			});
 			logTask('deleting old deploy', 'completed');
@@ -66,7 +56,7 @@ async function deploy() {
 
 		// read build directory recursively & synchronously then creates readable streams
 		logTask('reading build directory', 'started');
-		const containers = createDirectoryStreams(`${cwd}/build`);
+		const containers = readDirectory(`${cwd}/build`);
 		logTask('reading build directory', 'completed');
 
 		// put streams to S3 and rename to current
@@ -104,16 +94,16 @@ async function deploy() {
 
 deploy();
 
-const tasks = [
-	{
-		name: 'validate credentials',
-		action: validateCredentials
-	},
-	{
-		name: 'validate release',
-		action: validateRelease
-	},
-	{
-		name: 'another action'
-	}
-]
+async function taskManager(callbacks) {
+
+	callbacks.map(async (callback)=> {
+		logTask('yes', 'task');
+
+	});
+}
+
+/*
+	log task
+	run function
+
+ */
