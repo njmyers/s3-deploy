@@ -15,10 +15,7 @@ async function deploy() {
 	console.log(chalk.yellow('deploying your build to S3...'));
 
 	try {
-
-		const { AWS_SECRET_KEY, AWS_ID } = validateCredentials();
-		logTask('validating credentials', 'completed');
-
+		
 		logTask('validating release', 'started');
 		const { Bucket, log, release, cwd } = await validateRelease();
 		logTask('validating release', 'completed');
@@ -94,12 +91,8 @@ async function deploy() {
 
 deploy();
 
-async function taskManager(callbacks) {
+async function taskManager(cb) {
 
-	callbacks.map(async (callback)=> {
-		logTask('yes', 'task');
-
-	});
 }
 
 /*
