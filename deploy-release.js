@@ -49,14 +49,16 @@ async function deploy() {
 		});
 		logTask('archiving old deploy', 'completed');
 
-		logTask('deleting old deploy', 'started');
-		const deleted = await deleteObjects({
-			Bucket,
-			Delete: {
-				Objects: stripKeys(oldContainers)
-			}
-		});
-		logTask('deleting old deploy', 'completed');
+		if (oldContainers.length < 0) {
+			logTask('deleting old deploy', 'started');
+			const deleted = await deleteObjects({
+				Bucket,
+				Delete: {
+					Objects: stripKeys(oldContainers)
+				}
+			});
+			logTask('deleting old deploy', 'completed');
+		}
 
 		// read build directory recursively & synchronously then creates readable streams
 		logTask('reading build directory', 'started');
