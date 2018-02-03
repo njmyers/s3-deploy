@@ -10,7 +10,8 @@ const { validateRelease,
 		archiveOldDeploy,
 		readBuildDirectory,
 		uploadCurrentBuild,
-		uploadNewLog } = require('./lib/tasks');
+		uploadNewLog,
+		logNewRelease } = require('./lib/tasks');
 
 async function deploy() {
 
