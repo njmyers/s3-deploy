@@ -1,7 +1,4 @@
-#!/usr/bin/env node
-
-const chalk = require('chalk');
-const { run, runSync } = require('./lib/run');
+const { run, runSync } = require('../lib/run');
 
 const { validateRelease,
 		enforceBucketPolicy,
@@ -11,7 +8,7 @@ const { validateRelease,
 		readBuildDirectory,
 		uploadCurrentBuild,
 		uploadNewLog,
-		logNewRelease } = require('./lib/tasks');
+		logNewRelease } = require('../lib/tasks');
 
 async function deploy() {
 
@@ -49,4 +46,4 @@ async function deploy() {
 	}
 }
 
-deploy();
+module.exports = deploy;
