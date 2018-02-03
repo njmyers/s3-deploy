@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk');
-const { run } = require('./lib/run');
+const { run, runSync } = require('./lib/run');
 
 const { validateRelease,
 		enforceBucketPolicy,
@@ -26,7 +26,7 @@ async function deploy() {
 		const archived = current.length > 0 ? await run(archiveOldDeploy, Bucket, current, log.current.id) : true;
 
 		// read build directory (sync) recursively & then create readable streams & headers
-		const containers = run(readBuildDirectory, cwd);
+		const containers = runSync(readBuildDirectory, cwd);
 
 		// put streams to S3 and rename to current
 		await run(uploadCurrentBuild, Bucket, containers);
@@ -41,7 +41,7 @@ async function deploy() {
 		await run(enforceWebsitePolicy, Bucket);
 		
 		// ouptut release info
-		run(logNewRelease, release);
+		await run(logNewRelease, release);
 		
 	} catch(e) {
 		console.log(chalk.red(e));		
