@@ -10,7 +10,8 @@
 		"patch-release": "npm version patch && npm publish && git push --follow-tags",
 		"test": "jest --watchAll",
 		"prettier": "prettier --write '**/*.{js,jsx,json}'",
-		"precommit": "lint-staged"
+		"jest": "jest",
+		"precommit": "lint-staged && npm test"
 	},
 	"author": "Nick Myers",
 	"license": "ISC",
