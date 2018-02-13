@@ -1,0 +1,12 @@
+{
+	"libs": ["browser", "ecmascript", "react", "underscore"],
+	"plugins": {
+		"node": {},
+		"modules": {},
+		"es_modules": {},
+		"doc_comment": {},
+		"commonjs": {},
+		"complete_strings": {}
+	},
+	"ecmaVersion": 7
+}
