@@ -2,14 +2,10 @@ const chalk = require('chalk');
 
 const { run, runSync } = require('../lib/run');
 
-const { validateBucket,
-		validateLog,
-		showLog } = require('../lib/tasks');
+const { validateBucket, validateLog, showLog } = require('../lib/tasks');
 
 async function log() {
-
 	try {
-
 		// get bucket name
 		const Bucket = runSync(validateBucket);
 
@@ -18,9 +14,8 @@ async function log() {
 
 		// show log in console
 		showLog(log, Bucket);
-		
-	} catch(e) {
-		console.log(chalk.red(e));		
+	} catch (e) {
+		console.log(chalk.red(e));
 	}
 }
 

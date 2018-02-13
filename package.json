@@ -8,7 +8,9 @@
 	},
 	"scripts": {
 		"patch-release": "npm version patch && npm publish && git push --follow-tags",
-		"test": "jest --watchAll"
+		"test": "jest --watchAll",
+		"prettier": "prettier --write '**/*.{js,jsx,json}'",
+		"precommit": "lint-staged"
 	},
 	"author": "Nick Myers",
 	"license": "ISC",
@@ -25,5 +27,13 @@
 	},
 	"bin": {
 		"s3-deploy": "s3-deploy.js"
+	},
+	"lint-staged": {
+		"**/*.{js,jsx,json}": ["prettier --write", "git add"]
+	},
+	"devDependencies": {
+		"husky": "^0.14.3",
+		"lint-staged": "^6.1.0",
+		"prettier": "^1.10.2"
 	}
 }
