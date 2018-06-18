@@ -1,0 +1,16 @@
+export { default as archiveOldDeploy } from './archive-old-deploy';
+export { default as enforceBucketPolicy } from './enforce-bucket-policy';
+export { default as enforceWebsitePolicy } from './enforce-website-policy';
+export { default as logKeys } from './log-keys';
+export { default as logNewRelease } from './log-new-release';
+export { default as policyGenerator } from './policy-generator';
+export { default as readBuildDirectory } from './read-build-directory';
+export { default as readOldDeploy } from './read-old-deploy';
+export { default as registerCwd } from './register-cwd';
+export { default as removeDeploys } from './remove-deploys';
+export { default as showLog } from './show-log';
+export { default as uploadCurrentBuild } from './upload-current-build';
+export { default as uploadNewLog } from './upload-new-log';
+export { default as validateBucket } from './validate-bucket';
+export { default as validateLog } from './validate-log';
+export { default as validateRelease } from './validate-release';

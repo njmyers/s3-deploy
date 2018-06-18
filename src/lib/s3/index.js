@@ -1,0 +1,15 @@
+export { default as deleteBucketWebsite } from './delete-bucket-website';
+export { default as deleteObjects } from './delete-objects';
+export { default as getBucketWebsite } from './get-bucket-website';
+export { default as getDeployLog } from './get-deploy-log';
+export { default as getDirectoryFromS3 } from './get-directory-from-s3';
+export { default as getObject } from './get-object';
+export { default as getObjects } from './get-objects';
+export { default as listObjects } from './list-objects';
+export { default as putBucketPolicy } from './put-bucket-policy';
+export { default as putBucketWebsite } from './put-bucket-website';
+export { default as putDeployLog } from './put-deploy-log';
+export { default as putDirectoryToS3 } from './put-directory-to-s3';
+export { default as putObject } from './put-object';
+export { default as putObjects } from './put-objects';
+export { default as s3 } from './s3';
