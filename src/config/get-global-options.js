@@ -1,7 +1,7 @@
 // @flow
 import dotenv from 'dotenv';
 import appRoot from 'app-root-path';
-import aws from 'aws-sdk';
+// import aws from 'aws-sdk';
 
 import getAWSGlobalConfig from './get-aws-global-config';
 import safeENV from './safe-env';
@@ -59,7 +59,7 @@ const globalOptions = (env: string, options: GlobalOptions): GlobalOptions => {
 
   const region = configuration.region;
 
-  const instance = new aws.Config({ credentials, region });
+  // const instance = new aws.Config({ credentials, region });
 
   return configuration;
 };

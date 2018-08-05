@@ -1,17 +1,30 @@
-const aws = require('aws-sdk');
+import aws from 'aws-sdk';
 
-const { runSync } = require('../run');
+const credentials = {
+  secretAccessKey: global.AWSConfiguration.secretAccessKey,
+  accessKeyId: global.AWSConfiguration.accessKeyId,
+};
 
-const validateCredentials = require('./validate-credentials');
-const validateRegion = require('./validate-region');
+const region = global.AWSConfiguration.region;
 
-const credentials = runSync(validateCredentials);
-const region = runSync(validateRegion);
+aws.Config({ configuration, region });
 
-// merge options object
-const options = { ...region, ...credentials };
+// const aws = require('aws-sdk');
+//
+// const { runSync } = require('../run');
+//
+// const validateCredentials = require('./validate-credentials');
+// const validateRegion = require('./validate-region');
+//
+// const credentials = runSync(validateCredentials);
+// const region = runSync(validateRegion);
+//
+// // merge options object
+// const options = { ...region, ...credentials };
+//
+// // initialize options object if any
+// if (Object.keys(options) > 0) aws.Config(options);
+//
+// module.exports = aws;
 
-// initialize options object if any
-if (Object.keys(options) > 0) aws.Config(options);
-
-module.exports = aws;
+export default aws;

@@ -14,7 +14,7 @@ test('correctly curries variables', async () => {
   expect(result).toBe(fourArgs(2, 3, 5, 2));
 });
 
-test('correctly errors', async () => {
-  const error = await run(newError);
-  expect();
-});
+// test('correctly errors', async () => {
+//   const error = await run(newError);
+//   // expect();
+// });
